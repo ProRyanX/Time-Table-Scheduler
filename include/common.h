@@ -82,6 +82,7 @@ class ClassEvent {
             this->duration = duration;
             this->frequency = frequency;
             this->Lab = Lab;
+
         }
 
         int getDuration() const{
