@@ -64,4 +64,35 @@ class TimeSlot {
         }
 };
 
+// Class Events
+class ClassEvent {
+    private:
+        string sectionID;
+        string subjectName;
+        string teacher_ID;
+        int duration;
+        int frequency;
+        bool Lab;
+
+    public:
+        ClassEvent(string sectionID, string subjectName, string teacher_ID, int duration, int frequency, bool Lab) {
+            this->sectionID = sectionID;
+            this->subjectName = subjectName;
+            this->teacher_ID = teacher_ID;
+            this->duration = duration;
+            this->frequency = frequency;
+            this->Lab = Lab;
+        }
+
+        int getDuration() const{
+            return duration;
+        }
+        int getFrequency() const{
+            return frequency;
+        }
+        bool isLab() const{
+            return Lab;
+        }
+};
+
 #endif
