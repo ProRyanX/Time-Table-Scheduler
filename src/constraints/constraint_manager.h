@@ -1,11 +1,21 @@
-#ifndef CONSTRAINT_MANAGER
-#define CONSTRAINT_MANAGER
+#ifndef CONSTRAINT_MANAGER_H
+#define CONSTRAINT_MANAGER_H
 
-#include "../../include/common.h"
-#include "../../include/constants.h"
+#include "globals.h"
 
+// Initialize all global arrays to false/empty and block lunch slots
+void initializeConstraintArrays();
 
-bool isSafe(int day, int slot, int roomIndex, const ClassEvent& event);
-void markBusy(int day, int slot, int roomIndex, const ClassEvent& event, bool status);
+// Central O(1) safety check used by DFS solver
+// Returns true if the slot is safe for this event
+// NOTE: Caller (solver) must pass pre-mapped integer indices
+//       (parser should provide teacherIdx, sectionIdx, subjectIdx)
+bool isSafe(int roomIdx, int day, int slot, int teacherIdx, int sectionIdx, int subjectIdx);
+
+// Mark slot as occupied (called when placing an event)
+void assignEvent(int roomIdx, int day, int slot, int teacherIdx, int sectionIdx, int subjectIdx);
+
+// Unmark slot (called during backtracking)
+void unassignEvent(int roomIdx, int day, int slot, int teacherIdx, int sectionIdx, int subjectIdx);
 
 #endif
