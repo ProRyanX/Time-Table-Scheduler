@@ -39,16 +39,20 @@ class Teacher {
 // Room Structure
 class Room {
     private:
-        int id;
+        string RoomID;
         string name;
         int capacity;
 
     public:
-        Room(int id, string name, int capacity) {
-            this->id = id;
+        Room(string RoomID, string name, int capacity) {
+            this->RoomID = RoomID;
             this->name = name;
             this->capacity = capacity;
         }
+        string getRoomID() {
+            return RoomID;
+        }
+
 };
 
 // Time Slot
@@ -94,6 +98,35 @@ class ClassEvent {
         bool isLab() const{
             return Lab;
         }
+};
+
+// Time Table
+class TimetableCell {
+    private:
+        bool occupied;
+        string subjectName;
+        string sectionID;
+        string teacher_ID;
+        bool Lab;
+
+    public:
+        TimetableCell(
+            bool occupied,
+            string subjectName,
+            string sectionID,
+            string teacher_ID,
+            bool Lab
+        ) {
+            this->occupied = occupied;       this->subjectName = subjectName;        
+            this->sectionID = sectionID;     this->teacher_ID = teacher_ID;
+            this->Lab = Lab;
+        }
+
+        bool isOccupied()       const   { return occupied; }
+        string getSubjectName() const   { return subjectName; }
+        string getSectionID()   const   { return sectionID; }
+        string getTeacherID()   const   { return teacher_ID; }
+        bool isLab()            const   { return Lab; }
 };
 
 #endif

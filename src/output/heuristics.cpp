@@ -8,7 +8,7 @@
 // Labs score higher because they need specific room types
 // Higher frequency = harder to fit = score higher
 // -----------------------------------------------------------
-int constraintScore(const ClassEvent& e) {
+static int constraintScore(const ClassEvent& e) {
     int score = 0;
 
     // More sessions per week = fewer valid dday combinations = harder
