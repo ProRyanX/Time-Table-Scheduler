@@ -3,27 +3,34 @@
 #include <sstream>
 
 // Read Courses CSV
+// Read Courses CSV
 vector<Course> readCourses(string filename) {
     vector<Course> courses;
     ifstream file(filename);
     string line;
 
+    // Optional: uncomment if your CSV has a header row to skip it
+    // getline(file, line); 
+
     while (getline(file, line)) {
-        stringstream ss(line);      // A stringstream object created for 'line'. Here, ("ID,Name,Teacher_ID,Lectures_Per_Week")
+        if (line.empty()) continue; // Skip empty lines so the program doesn't crash
+        stringstream ss(line);      
 
-        string temp;
-        int id, teacher_id, lectures_per_week;
-        string name;
+        string id, name, teacher_id, temp;
+        int lectures_per_week;
 
-        getline(ss, temp, ',');     // Gets the substring until the character ','
-        id = stoi(temp);            // Converts the string number into an integer number. "98" -> 98
+        // 1. Get ID (Read directly into the string variable)
+        getline(ss, id, ',');       
 
-        getline(ss,name,',');       // Stores the next substring until the character ','
+        // 2. Get Name (Read directly into the string variable)
+        getline(ss, name, ',');       
 
-        getline(ss, temp, ',');
-        teacher_id = stoi(temp);
+        // 3. Get Teacher ID (Read directly into the string variable)
+        getline(ss, teacher_id, ',');
 
-        getline(ss, temp, '\n');    // Gets the final substring in the string stream
+        // 4. Get Lectures Per Week 
+        // This one IS a number, so we use temp and stoi() here
+        getline(ss, temp, '\n');    
         lectures_per_week = stoi(temp);
 
         Course C(id, name, teacher_id, lectures_per_week);
@@ -31,24 +38,25 @@ vector<Course> readCourses(string filename) {
     }
     return courses;
 }
-
 // Read Teachers CSV
 vector<Teacher> readTeachers(string filename) {
     vector<Teacher> teachers;
     ifstream file(filename);
     string line;
 
+    // Optional: uncomment if your CSV has a header row to skip it
+    // getline(file, line); 
+
     while (getline(file, line)) {
-        stringstream ss(line);      // A stringstream object created for 'line'. Here, ("ID,Name")
+        if (line.empty()) continue;
+        stringstream ss(line);
 
         string temp;
-        int id;
+        string id;
         string name;
 
-        getline(ss, temp, ',');     // Gets the substring until the character ','
-        id = stoi(temp);            // Converts the string number into an integer number. "98" -> 98
-
-        getline(ss, name, '\n');    // Gets the final substring in the string stream
+        getline(ss, id, ',');       // DIRECTLY get string ID (No stoi needed!)
+        getline(ss, name, '\n');    
 
         Teacher T(id, name);
         teachers.push_back(T);
@@ -61,35 +69,80 @@ vector<Room> readRooms(string filename) {
     vector<Room> rooms;
     ifstream file(filename);
     string line;
-    // while (getline(file, line)) {
-    //     stringstream ss(line);
-    //     string temp;
-    //     Room r;
-    //     getline(ss, temp, ',');
-    //     r.id = stoi(temp);
-    //     getline(ss, r.name, ',');
-    //     getline(ss, temp, ',');
-    //     r.capacity = stoi(temp);
-    //     rooms.push_back(r);
-    // }
+
+    // Optional: uncomment if your CSV has a header row
+    // getline(file, line); 
 
     while (getline(file, line)) {
-        stringstream ss(line);      // A stringstream object created for 'line'. Here, ("ID,Name,Teacher_ID,Lectures_Per_Week")
+        if (line.empty()) continue;
+        stringstream ss(line);
 
         string temp;
-        int id, capacity;
+        string id;
         string name;
+        int capacity;
 
-        getline(ss, temp, ',');     // Gets the substring until the character ','
-        id = stoi(temp);            // Converts the string number into an integer number. "98" -> 98
+        getline(ss, id, ',');       // DIRECTLY get string ID
+        getline(ss, name, ',');     
 
-        getline(ss, name, ',');     // Stores the next substring until the character ','
-
-        getline(ss, temp, '\n');    // Gets the final substring in the string stream
-        capacity = stoi(temp);
+        getline(ss, temp, '\n');    
+        capacity = stoi(temp);      // Capacity is still a pure number, so stoi() is correct here!
 
         Room R(id, name, capacity);
         rooms.push_back(R);
     }
     return rooms;
+}
+// Read Requirements CSV and "Explode" based on frequency
+vector<ClassEvent> readRequirements(string filename) {
+    vector<ClassEvent> allEvents;
+    ifstream file(filename);
+    string line;
+
+    // Optional: If your CSV has a header row like "Section,Subject...", 
+    // uncomment the next line to skip the first row:
+    // getline(file, line); 
+
+    while (getline(file, line)) {
+        if (line.empty()) continue; // Skip empty lines
+
+        stringstream ss(line);
+        string temp;
+        
+        string sectionID, subjectName, teacher_ID;
+        int duration, frequency;
+        bool isLab;
+
+        // 1. Section
+        getline(ss, sectionID, ',');
+        
+        // 2. Subject
+        getline(ss, subjectName, ',');
+        
+        // 3. Teacher ID
+        getline(ss, teacher_ID, ',');
+        
+        // 4. Duration
+        getline(ss, temp, ',');
+        duration = stoi(temp);
+        
+        // 5. Frequency
+        getline(ss, temp, ',');
+        frequency = stoi(temp);
+        
+        // 6. IsLab (0 or 1)
+        getline(ss, temp, '\n');
+        isLab = (stoi(temp) == 1);
+
+        // -------------------------------------------------------------
+        // THE EXPLOSION LOGIC: 
+        // If frequency is 4, loop 4 times and create 4 separate objects
+        // -------------------------------------------------------------
+        for (int i = 0; i < frequency; i++) {
+            ClassEvent newEvent(sectionID, subjectName, teacher_ID, duration, frequency, isLab);
+            allEvents.push_back(newEvent);
+        }
+    }
+    
+    return allEvents;
 }

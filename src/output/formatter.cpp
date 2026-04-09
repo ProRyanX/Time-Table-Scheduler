@@ -49,7 +49,7 @@ void printHeader(const string& title) {
 void printDay(
     int day,
     const TimetableCell timetable[MAX_ROOMS][MAX_DAYS][MAX_SLOTS],
-    vector<Room>& rooms
+    const vector<Room>& rooms
 ) {
     string dayName = (day < 5) ? DAY_NAMES[day] : "Day " + to_string(day);
     printHeader(dayName);

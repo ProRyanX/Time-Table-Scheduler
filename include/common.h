@@ -9,13 +9,13 @@ using namespace std;
 // Course Structure
 class Course {
     private:
-        int id;
+        string id;
         string name;
-        int teacher_id;
+        string teacher_id;
         int lectures_per_week;
 
     public:
-        Course(int id, string name, int teacher_id, int lectures_per_week) {
+        Course(string id, string name, string teacher_id, int lectures_per_week) {
             this->id = id;
             this->name = name;
             this->teacher_id = teacher_id;
@@ -26,11 +26,11 @@ class Course {
 // Teacher Structure
 class Teacher {
     private:
-        int id;
+        string id;
         string name;
 
     public:
-        Teacher(int id, string name) {
+        Teacher(string id, string name) {
             this->id = id;
             this->name = name;
         }
@@ -49,7 +49,7 @@ class Room {
             this->name = name;
             this->capacity = capacity;
         }
-        string getRoomID() {
+        string getRoomID() const {
             return RoomID;
         }
 
@@ -98,6 +98,17 @@ class ClassEvent {
         bool isLab() const{
             return Lab;
         }
+        string getSectionID() const {
+    return sectionID;
+}
+
+string getSubjectName() const {
+    return subjectName;
+}
+
+string getTeacherID() const {
+    return teacher_ID;
+}
 };
 
 // Time Table
@@ -110,6 +121,13 @@ class TimetableCell {
         bool Lab;
 
     public:
+        TimetableCell() {
+            this->occupied = false;
+            this->subjectName = "";
+            this->sectionID = "";
+            this->teacher_ID = "";
+            this->Lab = false;
+        }
         TimetableCell(
             bool occupied,
             string subjectName,
@@ -117,6 +135,8 @@ class TimetableCell {
             string teacher_ID,
             bool Lab
         ) {
+
+            
             this->occupied = occupied;       this->subjectName = subjectName;        
             this->sectionID = sectionID;     this->teacher_ID = teacher_ID;
             this->Lab = Lab;

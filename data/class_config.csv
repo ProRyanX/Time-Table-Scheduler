@@ -1,0 +1,9 @@
+A,Maths,T1,1,4,0
+A,Physics,T2,1,5,0
+A,Physics_Lab,T2,2,2,1
+A,Chemistry,T3,1,4,0
+B,Maths,T1,1,4,0
+B,English,T4,1,5,0
+B,Chemistry_Lab,T3,2,2,1
+S,Advanced_AI,T5,1,3,0
+S,AI_Lab,T5,2,2,1

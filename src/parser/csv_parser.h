@@ -6,5 +6,5 @@
 vector<Course> readCourses(string filename);
 vector<Teacher> readTeachers(string filename);
 vector<Room> readRooms(string filename);
-
+vector<ClassEvent> readRequirements(string filename);
 #endif
