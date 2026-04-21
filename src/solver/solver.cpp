@@ -5,27 +5,31 @@
 
 using namespace std;
 
-bool solveTimeTable(vector<ClassEvent>& events, int index){
+bool solveTimeTable(vector<ClassEvent>& events, 
+                    int index,
+                    const std::unordered_map<std::string, int>& teacherMap,
+                    const std::unordered_map<std::string, int>& sectionMap,
+                    const std::unordered_map<std::string, int>& subjectMap,
+                    int numRooms
+                ){
     if(index>=(int)events.size()){
         return true;
     }
 
-    ClassEvent& currentEvent = events[index];
+    const ClassEvent& currentEvent = events[index];
+    int teacherIdx = teacherMap.at(currentEvent.getTeacherID());
+    int sectionIdx = sectionMap.at(currentEvent.getSectionID());
+    int subjectIdx = subjectMap.at(currentEvent.getSubjectName());
 
-    for(int day = 0; day<MAX_DAYS; day++){
-        for(int slot = 0; slot<MAX_SLOTS; slot ++){
+    for(int day = 0; day < MAX_DAYS; day++) {
+        for(int slot = 0; slot < MAX_SLOTS; slot ++) {
             if(slot == LUNCH_SLOT) continue;
-            for(int r = 0; r<MAX_ROOMS; r++){
-                if(isSafe(day,slot,r,currentEvent)){
-                    markBusy(day, slot,r,currentEvent, true);
-
-                    if(solveTimeTable(events, index+1)){
-                        return true;
-                    }
-
-                    markBusy(day,slot,r,currentEvent, false);
-                }
-            
+            for(int room = 0; room < numRooms; room++) {
+                if(!isSafe(room, day, slot, teacherIdx, sectionIdx, subjectIdx)) { continue; }
+                    
+                assignEvent(room, day, slot, teacherIdx, sectionIdx, subjectIdx, index);
+                if(solveTimeTable(events, index + 1, teacherMap, sectionMap, subjectMap, numRooms)) { return true; }
+                unassignEvent(room, day, slot, teacherIdx, sectionIdx, subjectIdx);
             }
         }
     }

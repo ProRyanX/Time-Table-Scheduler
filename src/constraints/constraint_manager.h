@@ -1,7 +1,7 @@
 #ifndef CONSTRAINT_MANAGER_H
 #define CONSTRAINT_MANAGER_H
 
-#include "globals.h"
+#include "../../include/globals.h"
 
 // Initialize all global arrays to false/empty and block lunch slots
 void initializeConstraintArrays();
@@ -13,7 +13,7 @@ void initializeConstraintArrays();
 bool isSafe(int roomIdx, int day, int slot, int teacherIdx, int sectionIdx, int subjectIdx);
 
 // Mark slot as occupied (called when placing an event)
-void assignEvent(int roomIdx, int day, int slot, int teacherIdx, int sectionIdx, int subjectIdx);
+void assignEvent(int roomIdx, int day, int slot, int teacherIdx, int sectionIdx, int subjectIdx, int eventIndex);
 
 // Unmark slot (called during backtracking)
 void unassignEvent(int roomIdx, int day, int slot, int teacherIdx, int sectionIdx, int subjectIdx);

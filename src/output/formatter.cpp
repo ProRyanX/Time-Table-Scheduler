@@ -100,7 +100,7 @@ void printDay(
 // ----------------------------------------------------------------
 void printTimetable(
     const TimetableCell timetable[MAX_ROOMS][MAX_DAYS][MAX_SLOTS],
-    const vector<Room>& rooms
+    vector<Room>& rooms
 ) {
     printHeader("TIMETABLE SCHEDULER - FINAL SCHEDULE");
 

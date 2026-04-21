@@ -55,14 +55,12 @@ bool isSafe(int roomIdx, int day, int slot, int teacherIdx, int sectionIdx, int 
     return true;
 }
 
-void assignEvent(int roomIdx, int day, int slot, int teacherIdx, int sectionIdx, int subjectIdx) {
+void assignEvent(int roomIdx, int day, int slot, int teacherIdx, int sectionIdx, int subjectIdx, int eventIndex) {
     roomBusy[roomIdx][day][slot]     = true;
     teacherBusy[teacherIdx][day][slot] = true;
     sectionBusy[sectionIdx][day][slot] = true;
     subjectOnDay[subjectIdx][day]     = true;
-
-    // timetable will be set by the solver (or here if you prefer)
-    // timetable[roomIdx][day][slot] = eventIndex;  // solver decides
+    timetable[roomIdx][day][slot] = eventIndex;
 }
 
 void unassignEvent(int roomIdx, int day, int slot, int teacherIdx, int sectionIdx, int subjectIdx) {

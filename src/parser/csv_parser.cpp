@@ -1,6 +1,14 @@
 #include "csv_parser.h"
 #include <fstream>
 #include <sstream>
+#include <iostream>
+
+string trim(const string& str) {
+    size_t first = str.find_first_not_of(" \t\r\n");
+    size_t last = str.find_last_not_of(" \t\r\n");
+    if (first == string::npos) return "";
+    return str.substr(first, last - first + 1);
+}
 
 // Read Courses CSV
 vector<Course> readCourses(string filename) {
@@ -8,25 +16,40 @@ vector<Course> readCourses(string filename) {
     ifstream file(filename);
     string line;
 
+    getline(file, line);
+
     while (getline(file, line)) {
         stringstream ss(line);      // A stringstream object created for 'line'. Here, ("ID,Name,Teacher_ID,Lectures_Per_Week")
 
-        string temp;
-        int id, teacher_id, lectures_per_week;
+        string temp, id, teacher_id, section_id;
+        int lectures_per_week, duration;
         string name;
+        int islab;
 
-        getline(ss, temp, ',');     // Gets the substring until the character ','
-        id = stoi(temp);            // Converts the string number into an integer number. "98" -> 98
+        getline(ss, id, ',');     // Gets the substring until the character ','
 
         getline(ss,name,',');       // Stores the next substring until the character ','
 
-        getline(ss, temp, ',');
-        teacher_id = stoi(temp);
+        getline(ss, teacher_id, ',');
 
-        getline(ss, temp, '\n');    // Gets the final substring in the string stream
+        getline(ss, section_id, ',');
+
+        getline(ss, temp, ',');   
+        temp = trim(temp);
+        if(temp.empty()) { continue; }
         lectures_per_week = stoi(temp);
 
-        Course C(id, name, teacher_id, lectures_per_week);
+        getline(ss, temp, ',');
+        temp = trim(temp);
+        if (temp.empty()) { continue; }
+        duration = stoi(temp);
+
+        getline(ss, temp, '\n');
+        temp = trim(temp);
+        if (temp.empty()) { continue; }
+        islab = stoi(temp);
+
+        Course C(id, name, teacher_id, section_id, lectures_per_week, duration, islab);
         courses.push_back(C);
     }
     return courses;
@@ -38,15 +61,14 @@ vector<Teacher> readTeachers(string filename) {
     ifstream file(filename);
     string line;
 
+    getline(file, line);
+
     while (getline(file, line)) {
         stringstream ss(line);      // A stringstream object created for 'line'. Here, ("ID,Name")
 
-        string temp;
-        int id;
-        string name;
+        string name, id;
 
-        getline(ss, temp, ',');     // Gets the substring until the character ','
-        id = stoi(temp);            // Converts the string number into an integer number. "98" -> 98
+        getline(ss, id, ',');     // Gets the substring until the character ','
 
         getline(ss, name, '\n');    // Gets the final substring in the string stream
 
@@ -61,35 +83,31 @@ vector<Room> readRooms(string filename) {
     vector<Room> rooms;
     ifstream file(filename);
     string line;
-    // while (getline(file, line)) {
-    //     stringstream ss(line);
-    //     string temp;
-    //     Room r;
-    //     getline(ss, temp, ',');
-    //     r.id = stoi(temp);
-    //     getline(ss, r.name, ',');
-    //     getline(ss, temp, ',');
-    //     r.capacity = stoi(temp);
-    //     rooms.push_back(r);
-    // }
+
+    getline(file, line); // skip header
 
     while (getline(file, line)) {
-        stringstream ss(line);      // A stringstream object created for 'line'. Here, ("ID,Name,Teacher_ID,Lectures_Per_Week")
+        if (line.empty()) continue;
 
-        string temp;
-        int id, capacity;
-        string name;
+        stringstream ss(line);
+        string id, name, temp, roomType;
 
-        getline(ss, temp, ',');     // Gets the substring until the character ','
-        id = stoi(temp);            // Converts the string number into an integer number. "98" -> 98
+        getline(ss, id, ',');
+        getline(ss, name, ',');
+        getline(ss, temp, ',');
+        getline(ss, roomType, '\n');
 
-        getline(ss, name, ',');     // Stores the next substring until the character ','
+        temp = trim(temp);
 
-        getline(ss, temp, '\n');    // Gets the final substring in the string stream
-        capacity = stoi(temp);
+        if (temp.empty()) {
+            std::cout << "Skipping invalid room line: " << line << std::endl;
+            continue;
+        }
 
-        Room R(id, name, capacity);
-        rooms.push_back(R);
+        int capacity = stoi(temp);
+
+        rooms.emplace_back(id, name, capacity, trim(roomType));
     }
+
     return rooms;
 }
