@@ -1,164 +1,151 @@
-import time
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+import ctypes
+import os
 import json
-import sqlite3
-from services.cpp_bridge import (
-    generate,
-    get_error,
-    get_timetable,
-    get_score
-)
 
-class BackendAPI:
+app = Flask(__name__)
+CORS(app)  # Allow GUI to call this API
+
+class SchedulerBackend:
     def __init__(self):
-        self.db_path = "data/db.sqlite"
-        self.teachers = [
-            {"teacher_id": "T001", "name": "Dr. Sharma"},
-            {"teacher_id": "T002", "name": "Prof. Singh"},
+        self.lib = None
+        self.initialized = False
+        
+    def load_library(self):
+        """Load C++ shared library"""
+        lib_paths = [
+            "./backend/build/libscheduler.so",
+            "../backend/build/libscheduler.so",
+            "./build/libscheduler.so"
         ]
-        self.rooms = [
-            {"room_id": "R101", "name": "Classroom 101", "capacity": 60},
-            {"room_id": "LAB1", "name": "Computer Lab", "capacity": 40},
-        ]
-        self.events = [
-            {
-                "section_id": "SEC-A",
-                "subject_name": "DSA",
-                "teacher_id": "T001",
-                "duration": 1,
-                "frequency": 3,
-                "is_lab": False,
-            },
-            {
-                "section_id": "SEC-A",
-                "subject_name": "OS Lab",
-                "teacher_id": "T002",
-                "duration": 2,
-                "frequency": 1,
-                "is_lab": True,
-            },
-        ]
+        
+        for path in lib_paths:
+            if os.path.exists(path):
+                self.lib = ctypes.CDLL(path)
+                break
+        
+        if not self.lib:
+            raise Exception("C++ library not found")
+        
+        # Define function signatures (same as before)
+        self.lib.init_scheduler.argtypes = [ctypes.c_char_p] * 4
+        self.lib.init_scheduler.restype = ctypes.c_bool
+        
+        self.lib.generate_timetable.argtypes = []
+        self.lib.generate_timetable.restype = ctypes.c_int
+        
+        self.lib.export_timetable.argtypes = [ctypes.c_char_p]
+        self.lib.export_timetable.restype = ctypes.c_bool
+        
+        self.lib.get_last_error.argtypes = []
+        self.lib.get_last_error.restype = ctypes.c_char_p
+    
+    def init(self, data_dir="data"):
+        """Initialize with data files"""
+        if not self.lib:
+            self.load_library()
+        
+        ok = self.lib.init_scheduler(
+            f"{data_dir}/db.sqlite".encode(),
+            f"{data_dir}/courses.csv".encode(),
+            f"{data_dir}/teachers.csv".encode(),
+            f"{data_dir}/rooms.csv".encode()
+        )
+        
+        if ok:
+            self.initialized = True
+        else:
+            error = self.lib.get_last_error().decode()
+            raise Exception(f"Init failed: {error}")
+        
+        return ok
+    
+    def generate(self):
+        """Generate timetable"""
+        if not self.initialized:
+            raise Exception("Backend not initialized")
+        
+        score = self.lib.generate_timetable()
+        if score < 0:
+            error = self.lib.get_last_error().decode()
+            raise Exception(f"Generation failed: {error}")
+        
+        return score
+    
+    def export(self, output_dir="outputs"):
+        """Export to files"""
+        if not self.initialized:
+            raise Exception("Backend not initialized")
+        
+        return self.lib.export_timetable(output_dir.encode())
 
-    def get_teachers(self):
-        conn = sqlite3.connect(self.db_path)
-        cursor = conn.cursor()
+# Create global backend instance
+backend = SchedulerBackend()
 
-        cursor.execute("SELECT id, name FROM teachers")
-        rows = cursor.fetchall()
+# Flask routes
+@app.route('/api/init', methods=['POST'])
+def init_backend():
+    """Initialize the scheduler"""
+    try:
+        data = request.get_json() or {}
+        data_dir = data.get('data_dir', 'data')
+        backend.init(data_dir)
+        return jsonify({"success": True, "message": "Backend initialized"})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
 
-        conn.close()
-
-        return [
-            {"teacher_id": r[0], "name": r[1]}
-            for r in rows
-        ]
-
-    def add_teacher(self, teacher_id, name):
-        self.teachers.append({"teacher_id": teacher_id, "name": name})
-        return True, "Teacher added successfully"
-
-    def get_rooms(self):
-        conn = sqlite3.connect(self.db_path)
-        cursor = conn.cursor()
-
-        cursor.execute("SELECT id, name, capacity, room_type FROM rooms")
-        rows = cursor.fetchall()
-
-        conn.close()
-
-        return [
-            {
-                "room_id": r[0],
-                "name": r[1],
-                "capacity": r[2],
-                "room type": r[3]
-            }
-            for r in rows
-        ]
-
-    def add_room(self, room_id, name, capacity):
-        self.rooms.append({"room_id": room_id, "name": name, "capacity": int(capacity)})
-        return True, "Room added successfully"
-
-    def get_events(self):
-        conn = sqlite3.connect(self.db_path)
-        cursor = conn.cursor()
-
-        cursor.execute("""
-            SELECT name, teacher_id, section_id,
-            freq, duration, is_lab
-            FROM courses
-        """)
-
-        rows = cursor.fetchall()
-        conn.close()
-
-        return [
-            {
-                "subject_name": r[0],
-                "teacher_id": r[1],
-                "section_id": r[2],
-                "frequency": r[3],
-                "duration": r[4],
-                "is_lab": bool(r[5])
-            }
-            for r in rows
-        ]
-
-    def add_event(self, section_id, subject_name, teacher_id, duration, frequency, is_lab):
-        self.events.append({
-            "section_id": section_id,
-            "subject_name": subject_name,
-            "teacher_id": teacher_id,
-            "duration": int(duration),
-            "frequency": int(frequency),
-            "is_lab": bool(is_lab),
+@app.route('/api/generate', methods=['POST'])
+def generate_timetable():
+    """Generate timetable"""
+    try:
+        score = backend.generate()
+        
+        # Optionally export automatically
+        backend.export("outputs")
+        
+        return jsonify({
+            "success": True,
+            "score": score,
+            "message": f"Timetable generated with score {score}"
         })
-        return True, "Class event added successfully"
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
 
-
-    def generate_timetable(self, progress_callback=None):
-        try:
-            if progress_callback:
-                progress_callback(10)
-
-            print("Calling C++ generate...")
-            res = generate()
-            print("Return code:", res)
-
-            if progress_callback:
-                progress_callback(70)
-
-            err = get_error()
-            print("C++ Error:", err)
-
-            raw_tt = get_timetable()
-            raw_score = get_score()
-
-            print("Raw Timetable:", raw_tt)
-            print("Raw Score:", raw_score)
-
-            if res < 0:
-                return {
-                    "success": False,
-                    "error": err
-                }
-
-            timetable = json.loads(raw_tt)
-            score = json.loads(raw_score)
-
-            if progress_callback:
-                progress_callback(100)
-
-            return {
+@app.route('/api/export', methods=['POST'])
+def export_timetable():
+    """Export timetable to files"""
+    try:
+        data = request.get_json() or {}
+        output_dir = data.get('output_dir', 'outputs')
+        
+        if backend.export(output_dir):
+            return jsonify({
                 "success": True,
-                "timetable": timetable,
-                "score": score,
-                "output_files": []
-            }
-
-        except Exception as e:
-            print("PYTHON EXCEPTION:", str(e))
-            return {
+                "output_dir": output_dir,
+                "message": f"Exported to {output_dir}"
+            })
+        else:
+            return jsonify({
                 "success": False,
-                "error": str(e)
-            }
+                "error": "Export failed"
+            }), 500
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+@app.route('/api/status', methods=['GET'])
+def get_status():
+    """Check backend status"""
+    return jsonify({
+        "initialized": backend.initialized,
+        "ready": backend.initialized and backend.lib is not None
+    })
+
+@app.route('/api/health', methods=['GET'])
+def health_check():
+    """Health check endpoint"""
+    return jsonify({"status": "healthy"})
+
+if __name__ == '__main__':
+    # Run Flask server on localhost
+    app.run(host='127.0.0.1', port=5000, debug=False, threaded=True)
