@@ -45,4 +45,5 @@ set(CMAKE_MAKEFILE_PRODUCTS
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/TimetableScheduler.dir/DependInfo.cmake"
+  "CMakeFiles/scheduler.dir/DependInfo.cmake"
   )

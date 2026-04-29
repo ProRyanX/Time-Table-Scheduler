@@ -37,51 +37,55 @@ class ResultsPage(ctk.CTkFrame):
 
     def load_result(self, result):
         self.result_data = result
+        
+        # Handle case where score is an integer instead of a dict
         score = result["score"]
-
-        vals = [
-            score["total_score"],
-            score["conflicts"],
-            score["idle_gaps"],
-            score["lab_score"],
-            score["distribution_score"],
-        ]
+        if isinstance(score, int):
+            vals = [score, "N/A", "N/A", "N/A", "N/A"]
+        else:
+            vals = [
+                score.get("total_score", "N/A"),
+                score.get("conflicts", "N/A"),
+                score.get("idle_gaps", "N/A"),
+                score.get("lab_score", "N/A"),
+                score.get("distribution_score", "N/A"),
+            ]
+            
         titles = ["Total Score", "Conflicts", "Idle Gaps", "Lab Score", "Distribution"]
         for card, title, value in zip(self.score_cards, titles, vals):
-            for widget in card.winfo_children():
-                widget.destroy()
-            ctk.CTkLabel(card, text=title, font=ctk.CTkFont(size=13)).grid(
-                row=0, column=0, padx=16, pady=(14, 4), sticky="w"
-            )
-            ctk.CTkLabel(card, text=str(value), font=ctk.CTkFont(size=26, weight="bold")).grid(
-                row=1, column=0, padx=16, pady=(0, 14), sticky="w"
-            )
+            card.update_val(title, str(value))
 
-        sections = list(result["timetable"].keys()) or ["No Data"]
-        self.section_selector.configure(values=sections)
-        self.section_selector.set(sections[0])
-        self.render_section(sections[0])
+        sections = []
+        # If timetable data is available, populate section selector
+        if "timetable" in result and isinstance(result["timetable"], dict):
+            sections = list(result["timetable"].keys())
+            
+        if sections:
+            self.section_selector.configure(values=sections)
+            self.section_selector.set(sections[0])
+            self.render_section(sections[0])
+        else:
+            self.section_selector.configure(values=["No Data Options"])
+            self.section_selector.set("No Data Options")
+            self.timetable_box.delete("1.0", "end")
+            self.timetable_box.insert("end", "Timetable generated via C++.\nCheck the 'outputs/' folder for your excel/csv files!")
 
         self.export_box.delete("1.0", "end")
-        self.export_box.insert("end", "Generated export files:\n")
-        for path in result["output_files"]:
-            self.export_box.insert("end", f"- {path}\n")
+        if "export" in result:
+            for k, v in result["export"].items():
+                self.export_box.insert("end", f"{k}: {v}\n")
 
     def on_section_change(self, section):
-        self.render_section(section)
+        if section != "No Data Options":
+            self.render_section(section)
 
     def render_section(self, section):
-        self.timetable_box.delete("1.0", "end")
-        if not self.result_data:
+        if not self.result_data or "timetable" not in self.result_data:
             return
-
+            
         data = self.result_data["timetable"].get(section, {})
+        self.timetable_box.delete("1.0", "end")
         for day, slots in data.items():
-            self.timetable_box.insert("end", f"{day}\n")
-            self.timetable_box.insert("end", "-" * 42 + "\n")
-            slot_keys = [f"slot{i}" for i in range(8)]
-            for i, ts in enumerate(slot_keys):
-                value = slots.get(ts, "")
-                label = f"Slot {i+1}"
-                self.timetable_box.insert("end", f"{label}: {value if value else 'Free'}\n")
-            self.timetable_box.insert("end", "\n")
+            self.timetable_box.insert("end", f"\n=== {day} ===\n")
+            for t, ev in slots.items():
+                self.timetable_box.insert("end", f"  {t}: {ev}\n")

@@ -129,12 +129,26 @@ TimetableScheduler/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TimetableScheduler.dir/build.make CMakeFiles/TimetableScheduler.dir/build
 .PHONY : TimetableScheduler/fast
 
+#=============================================================================
+# Target rules for targets named scheduler
+
+# Build rule for target.
+scheduler: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 scheduler
+.PHONY : scheduler
+
+# fast build rule for target.
+scheduler/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/scheduler.dir/build.make CMakeFiles/scheduler.dir/build
+.PHONY : scheduler/fast
+
 src/constraints/constraint_manager.o: src/constraints/constraint_manager.cpp.o
 .PHONY : src/constraints/constraint_manager.o
 
 # target to build an object file
 src/constraints/constraint_manager.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TimetableScheduler.dir/build.make CMakeFiles/TimetableScheduler.dir/src/constraints/constraint_manager.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/scheduler.dir/build.make CMakeFiles/scheduler.dir/src/constraints/constraint_manager.cpp.o
 .PHONY : src/constraints/constraint_manager.cpp.o
 
 src/constraints/constraint_manager.i: src/constraints/constraint_manager.cpp.i
@@ -143,6 +157,7 @@ src/constraints/constraint_manager.i: src/constraints/constraint_manager.cpp.i
 # target to preprocess a source file
 src/constraints/constraint_manager.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TimetableScheduler.dir/build.make CMakeFiles/TimetableScheduler.dir/src/constraints/constraint_manager.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/scheduler.dir/build.make CMakeFiles/scheduler.dir/src/constraints/constraint_manager.cpp.i
 .PHONY : src/constraints/constraint_manager.cpp.i
 
 src/constraints/constraint_manager.s: src/constraints/constraint_manager.cpp.s
@@ -151,6 +166,7 @@ src/constraints/constraint_manager.s: src/constraints/constraint_manager.cpp.s
 # target to generate assembly for a file
 src/constraints/constraint_manager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TimetableScheduler.dir/build.make CMakeFiles/TimetableScheduler.dir/src/constraints/constraint_manager.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/scheduler.dir/build.make CMakeFiles/scheduler.dir/src/constraints/constraint_manager.cpp.s
 .PHONY : src/constraints/constraint_manager.cpp.s
 
 src/main.o: src/main.cpp.o
@@ -177,12 +193,40 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TimetableScheduler.dir/build.make CMakeFiles/TimetableScheduler.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/output/excel_exporter.o: src/output/excel_exporter.cpp.o
+.PHONY : src/output/excel_exporter.o
+
+# target to build an object file
+src/output/excel_exporter.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TimetableScheduler.dir/build.make CMakeFiles/TimetableScheduler.dir/src/output/excel_exporter.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/scheduler.dir/build.make CMakeFiles/scheduler.dir/src/output/excel_exporter.cpp.o
+.PHONY : src/output/excel_exporter.cpp.o
+
+src/output/excel_exporter.i: src/output/excel_exporter.cpp.i
+.PHONY : src/output/excel_exporter.i
+
+# target to preprocess a source file
+src/output/excel_exporter.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TimetableScheduler.dir/build.make CMakeFiles/TimetableScheduler.dir/src/output/excel_exporter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/scheduler.dir/build.make CMakeFiles/scheduler.dir/src/output/excel_exporter.cpp.i
+.PHONY : src/output/excel_exporter.cpp.i
+
+src/output/excel_exporter.s: src/output/excel_exporter.cpp.s
+.PHONY : src/output/excel_exporter.s
+
+# target to generate assembly for a file
+src/output/excel_exporter.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TimetableScheduler.dir/build.make CMakeFiles/TimetableScheduler.dir/src/output/excel_exporter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/scheduler.dir/build.make CMakeFiles/scheduler.dir/src/output/excel_exporter.cpp.s
+.PHONY : src/output/excel_exporter.cpp.s
+
 src/output/formatter.o: src/output/formatter.cpp.o
 .PHONY : src/output/formatter.o
 
 # target to build an object file
 src/output/formatter.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TimetableScheduler.dir/build.make CMakeFiles/TimetableScheduler.dir/src/output/formatter.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/scheduler.dir/build.make CMakeFiles/scheduler.dir/src/output/formatter.cpp.o
 .PHONY : src/output/formatter.cpp.o
 
 src/output/formatter.i: src/output/formatter.cpp.i
@@ -191,6 +235,7 @@ src/output/formatter.i: src/output/formatter.cpp.i
 # target to preprocess a source file
 src/output/formatter.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TimetableScheduler.dir/build.make CMakeFiles/TimetableScheduler.dir/src/output/formatter.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/scheduler.dir/build.make CMakeFiles/scheduler.dir/src/output/formatter.cpp.i
 .PHONY : src/output/formatter.cpp.i
 
 src/output/formatter.s: src/output/formatter.cpp.s
@@ -199,6 +244,7 @@ src/output/formatter.s: src/output/formatter.cpp.s
 # target to generate assembly for a file
 src/output/formatter.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TimetableScheduler.dir/build.make CMakeFiles/TimetableScheduler.dir/src/output/formatter.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/scheduler.dir/build.make CMakeFiles/scheduler.dir/src/output/formatter.cpp.s
 .PHONY : src/output/formatter.cpp.s
 
 src/output/heuristics.o: src/output/heuristics.cpp.o
@@ -207,6 +253,7 @@ src/output/heuristics.o: src/output/heuristics.cpp.o
 # target to build an object file
 src/output/heuristics.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TimetableScheduler.dir/build.make CMakeFiles/TimetableScheduler.dir/src/output/heuristics.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/scheduler.dir/build.make CMakeFiles/scheduler.dir/src/output/heuristics.cpp.o
 .PHONY : src/output/heuristics.cpp.o
 
 src/output/heuristics.i: src/output/heuristics.cpp.i
@@ -215,6 +262,7 @@ src/output/heuristics.i: src/output/heuristics.cpp.i
 # target to preprocess a source file
 src/output/heuristics.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TimetableScheduler.dir/build.make CMakeFiles/TimetableScheduler.dir/src/output/heuristics.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/scheduler.dir/build.make CMakeFiles/scheduler.dir/src/output/heuristics.cpp.i
 .PHONY : src/output/heuristics.cpp.i
 
 src/output/heuristics.s: src/output/heuristics.cpp.s
@@ -223,6 +271,7 @@ src/output/heuristics.s: src/output/heuristics.cpp.s
 # target to generate assembly for a file
 src/output/heuristics.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TimetableScheduler.dir/build.make CMakeFiles/TimetableScheduler.dir/src/output/heuristics.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/scheduler.dir/build.make CMakeFiles/scheduler.dir/src/output/heuristics.cpp.s
 .PHONY : src/output/heuristics.cpp.s
 
 src/parser/csv_parser.o: src/parser/csv_parser.cpp.o
@@ -231,6 +280,7 @@ src/parser/csv_parser.o: src/parser/csv_parser.cpp.o
 # target to build an object file
 src/parser/csv_parser.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TimetableScheduler.dir/build.make CMakeFiles/TimetableScheduler.dir/src/parser/csv_parser.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/scheduler.dir/build.make CMakeFiles/scheduler.dir/src/parser/csv_parser.cpp.o
 .PHONY : src/parser/csv_parser.cpp.o
 
 src/parser/csv_parser.i: src/parser/csv_parser.cpp.i
@@ -239,6 +289,7 @@ src/parser/csv_parser.i: src/parser/csv_parser.cpp.i
 # target to preprocess a source file
 src/parser/csv_parser.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TimetableScheduler.dir/build.make CMakeFiles/TimetableScheduler.dir/src/parser/csv_parser.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/scheduler.dir/build.make CMakeFiles/scheduler.dir/src/parser/csv_parser.cpp.i
 .PHONY : src/parser/csv_parser.cpp.i
 
 src/parser/csv_parser.s: src/parser/csv_parser.cpp.s
@@ -247,7 +298,62 @@ src/parser/csv_parser.s: src/parser/csv_parser.cpp.s
 # target to generate assembly for a file
 src/parser/csv_parser.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TimetableScheduler.dir/build.make CMakeFiles/TimetableScheduler.dir/src/parser/csv_parser.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/scheduler.dir/build.make CMakeFiles/scheduler.dir/src/parser/csv_parser.cpp.s
 .PHONY : src/parser/csv_parser.cpp.s
+
+src/parser/db_interface.o: src/parser/db_interface.cpp.o
+.PHONY : src/parser/db_interface.o
+
+# target to build an object file
+src/parser/db_interface.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TimetableScheduler.dir/build.make CMakeFiles/TimetableScheduler.dir/src/parser/db_interface.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/scheduler.dir/build.make CMakeFiles/scheduler.dir/src/parser/db_interface.cpp.o
+.PHONY : src/parser/db_interface.cpp.o
+
+src/parser/db_interface.i: src/parser/db_interface.cpp.i
+.PHONY : src/parser/db_interface.i
+
+# target to preprocess a source file
+src/parser/db_interface.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TimetableScheduler.dir/build.make CMakeFiles/TimetableScheduler.dir/src/parser/db_interface.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/scheduler.dir/build.make CMakeFiles/scheduler.dir/src/parser/db_interface.cpp.i
+.PHONY : src/parser/db_interface.cpp.i
+
+src/parser/db_interface.s: src/parser/db_interface.cpp.s
+.PHONY : src/parser/db_interface.s
+
+# target to generate assembly for a file
+src/parser/db_interface.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TimetableScheduler.dir/build.make CMakeFiles/TimetableScheduler.dir/src/parser/db_interface.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/scheduler.dir/build.make CMakeFiles/scheduler.dir/src/parser/db_interface.cpp.s
+.PHONY : src/parser/db_interface.cpp.s
+
+src/scheduler_api.o: src/scheduler_api.cpp.o
+.PHONY : src/scheduler_api.o
+
+# target to build an object file
+src/scheduler_api.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TimetableScheduler.dir/build.make CMakeFiles/TimetableScheduler.dir/src/scheduler_api.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/scheduler.dir/build.make CMakeFiles/scheduler.dir/src/scheduler_api.cpp.o
+.PHONY : src/scheduler_api.cpp.o
+
+src/scheduler_api.i: src/scheduler_api.cpp.i
+.PHONY : src/scheduler_api.i
+
+# target to preprocess a source file
+src/scheduler_api.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TimetableScheduler.dir/build.make CMakeFiles/TimetableScheduler.dir/src/scheduler_api.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/scheduler.dir/build.make CMakeFiles/scheduler.dir/src/scheduler_api.cpp.i
+.PHONY : src/scheduler_api.cpp.i
+
+src/scheduler_api.s: src/scheduler_api.cpp.s
+.PHONY : src/scheduler_api.s
+
+# target to generate assembly for a file
+src/scheduler_api.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/TimetableScheduler.dir/build.make CMakeFiles/TimetableScheduler.dir/src/scheduler_api.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/scheduler.dir/build.make CMakeFiles/scheduler.dir/src/scheduler_api.cpp.s
+.PHONY : src/scheduler_api.cpp.s
 
 src/solver/solver.o: src/solver/solver.cpp.o
 .PHONY : src/solver/solver.o
@@ -255,6 +361,7 @@ src/solver/solver.o: src/solver/solver.cpp.o
 # target to build an object file
 src/solver/solver.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TimetableScheduler.dir/build.make CMakeFiles/TimetableScheduler.dir/src/solver/solver.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/scheduler.dir/build.make CMakeFiles/scheduler.dir/src/solver/solver.cpp.o
 .PHONY : src/solver/solver.cpp.o
 
 src/solver/solver.i: src/solver/solver.cpp.i
@@ -263,6 +370,7 @@ src/solver/solver.i: src/solver/solver.cpp.i
 # target to preprocess a source file
 src/solver/solver.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TimetableScheduler.dir/build.make CMakeFiles/TimetableScheduler.dir/src/solver/solver.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/scheduler.dir/build.make CMakeFiles/scheduler.dir/src/solver/solver.cpp.i
 .PHONY : src/solver/solver.cpp.i
 
 src/solver/solver.s: src/solver/solver.cpp.s
@@ -271,6 +379,7 @@ src/solver/solver.s: src/solver/solver.cpp.s
 # target to generate assembly for a file
 src/solver/solver.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/TimetableScheduler.dir/build.make CMakeFiles/TimetableScheduler.dir/src/solver/solver.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/scheduler.dir/build.make CMakeFiles/scheduler.dir/src/solver/solver.cpp.s
 .PHONY : src/solver/solver.cpp.s
 
 # Help Target
@@ -282,12 +391,16 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... TimetableScheduler"
+	@echo "... scheduler"
 	@echo "... src/constraints/constraint_manager.o"
 	@echo "... src/constraints/constraint_manager.i"
 	@echo "... src/constraints/constraint_manager.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/output/excel_exporter.o"
+	@echo "... src/output/excel_exporter.i"
+	@echo "... src/output/excel_exporter.s"
 	@echo "... src/output/formatter.o"
 	@echo "... src/output/formatter.i"
 	@echo "... src/output/formatter.s"
@@ -297,6 +410,12 @@ help:
 	@echo "... src/parser/csv_parser.o"
 	@echo "... src/parser/csv_parser.i"
 	@echo "... src/parser/csv_parser.s"
+	@echo "... src/parser/db_interface.o"
+	@echo "... src/parser/db_interface.i"
+	@echo "... src/parser/db_interface.s"
+	@echo "... src/scheduler_api.o"
+	@echo "... src/scheduler_api.i"
+	@echo "... src/scheduler_api.s"
 	@echo "... src/solver/solver.o"
 	@echo "... src/solver/solver.i"
 	@echo "... src/solver/solver.s"

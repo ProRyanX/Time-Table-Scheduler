@@ -10,13 +10,19 @@ class StatCard(ctk.CTkFrame):
     def __init__(self, master, title, value):
         super().__init__(master, corner_radius=16)
         self.grid_columnconfigure(0, weight=1)
-        ctk.CTkLabel(self, text=title, font=ctk.CTkFont(size=13)).grid(
-            row=0, column=0, padx=16, pady=(14, 4), sticky="w"
-        )
-        ctk.CTkLabel(self, text=str(value), font=ctk.CTkFont(size=26, weight="bold")).grid(
-            row=1, column=0, padx=16, pady=(0, 14), sticky="w"
-        )
+        
+        self.title_label = ctk.CTkLabel(self, text=title, font=ctk.CTkFont(size=13))
+        self.title_label.grid(row=0, column=0, padx=16, pady=(14, 4), sticky="w")
+        
+        # Save a reference to the label so it can be updated later
+        self.value_label = ctk.CTkLabel(self, text=str(value), font=ctk.CTkFont(size=26, weight="bold"))
+        self.value_label.grid(row=1, column=0, padx=16, pady=(0, 14), sticky="w")
 
+    def update_val(self, title, value):
+        """Update the value displayed on the card"""
+        # Updates both title and value, though mostly just value matters
+        self.title_label.configure(text=title)
+        self.value_label.configure(text=str(value))
 class DataTable(ctk.CTkFrame):
     def __init__(self, master, columns):
         super().__init__(master, corner_radius=12)

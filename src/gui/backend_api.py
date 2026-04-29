@@ -14,20 +14,24 @@ class SchedulerBackend:
         
     def load_library(self):
         """Load C++ shared library"""
+        # Get absolute path to the project root
+        base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+        
         lib_paths = [
-            "./backend/build/libscheduler.so",
-            "../backend/build/libscheduler.so",
-            "./build/libscheduler.so"
+            os.path.join(base_dir, "build", "libscheduler.so"),
+            os.path.join(base_dir, "build", "scheduler.dll"),
+            os.path.join(base_dir, "build", "Release", "scheduler.dll")
         ]
         
         for path in lib_paths:
             if os.path.exists(path):
                 self.lib = ctypes.CDLL(path)
+                print(f"Loaded Native C++ API: {path}") # Just to give terminal feedback
                 break
         
         if not self.lib:
-            raise Exception("C++ library not found")
-        
+            raise Exception(f"C++ library not found. Searched in: {lib_paths}")
+                
         # Define function signatures (same as before)
         self.lib.init_scheduler.argtypes = [ctypes.c_char_p] * 4
         self.lib.init_scheduler.restype = ctypes.c_bool

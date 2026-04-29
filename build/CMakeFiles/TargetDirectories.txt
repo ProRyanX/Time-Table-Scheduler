@@ -1,3 +1,4 @@
 /mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler/build/CMakeFiles/TimetableScheduler.dir
+/mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler/build/CMakeFiles/scheduler.dir
 /mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler/build/CMakeFiles/edit_cache.dir
 /mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler/build/CMakeFiles/rebuild_cache.dir

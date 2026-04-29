@@ -224,6 +224,9 @@ TimetableScheduler_IS_TOP_LEVEL:STATIC=ON
 //Value Computed by CMake
 TimetableScheduler_SOURCE_DIR:STATIC=/mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler
 
+//Dependencies for the target
+scheduler_LIB_DEPENDS:STATIC=general;xlsxwriter;general;z;general;sqlite3;
+
 
 ########################
 # INTERNAL cache entries

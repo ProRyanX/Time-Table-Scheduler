@@ -83,10 +83,24 @@ CMakeFiles/TimetableScheduler.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/TimetableScheduler.dir/src/main.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler/src/main.cpp -o CMakeFiles/TimetableScheduler.dir/src/main.cpp.s
 
+CMakeFiles/TimetableScheduler.dir/src/scheduler_api.cpp.o: CMakeFiles/TimetableScheduler.dir/flags.make
+CMakeFiles/TimetableScheduler.dir/src/scheduler_api.cpp.o: /mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler/src/scheduler_api.cpp
+CMakeFiles/TimetableScheduler.dir/src/scheduler_api.cpp.o: CMakeFiles/TimetableScheduler.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/TimetableScheduler.dir/src/scheduler_api.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/TimetableScheduler.dir/src/scheduler_api.cpp.o -MF CMakeFiles/TimetableScheduler.dir/src/scheduler_api.cpp.o.d -o CMakeFiles/TimetableScheduler.dir/src/scheduler_api.cpp.o -c /mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler/src/scheduler_api.cpp
+
+CMakeFiles/TimetableScheduler.dir/src/scheduler_api.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/TimetableScheduler.dir/src/scheduler_api.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler/src/scheduler_api.cpp > CMakeFiles/TimetableScheduler.dir/src/scheduler_api.cpp.i
+
+CMakeFiles/TimetableScheduler.dir/src/scheduler_api.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/TimetableScheduler.dir/src/scheduler_api.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler/src/scheduler_api.cpp -o CMakeFiles/TimetableScheduler.dir/src/scheduler_api.cpp.s
+
 CMakeFiles/TimetableScheduler.dir/src/parser/csv_parser.cpp.o: CMakeFiles/TimetableScheduler.dir/flags.make
 CMakeFiles/TimetableScheduler.dir/src/parser/csv_parser.cpp.o: /mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler/src/parser/csv_parser.cpp
 CMakeFiles/TimetableScheduler.dir/src/parser/csv_parser.cpp.o: CMakeFiles/TimetableScheduler.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/TimetableScheduler.dir/src/parser/csv_parser.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/TimetableScheduler.dir/src/parser/csv_parser.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/TimetableScheduler.dir/src/parser/csv_parser.cpp.o -MF CMakeFiles/TimetableScheduler.dir/src/parser/csv_parser.cpp.o.d -o CMakeFiles/TimetableScheduler.dir/src/parser/csv_parser.cpp.o -c /mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler/src/parser/csv_parser.cpp
 
 CMakeFiles/TimetableScheduler.dir/src/parser/csv_parser.cpp.i: cmake_force
@@ -97,10 +111,24 @@ CMakeFiles/TimetableScheduler.dir/src/parser/csv_parser.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/TimetableScheduler.dir/src/parser/csv_parser.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler/src/parser/csv_parser.cpp -o CMakeFiles/TimetableScheduler.dir/src/parser/csv_parser.cpp.s
 
+CMakeFiles/TimetableScheduler.dir/src/parser/db_interface.cpp.o: CMakeFiles/TimetableScheduler.dir/flags.make
+CMakeFiles/TimetableScheduler.dir/src/parser/db_interface.cpp.o: /mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler/src/parser/db_interface.cpp
+CMakeFiles/TimetableScheduler.dir/src/parser/db_interface.cpp.o: CMakeFiles/TimetableScheduler.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/TimetableScheduler.dir/src/parser/db_interface.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/TimetableScheduler.dir/src/parser/db_interface.cpp.o -MF CMakeFiles/TimetableScheduler.dir/src/parser/db_interface.cpp.o.d -o CMakeFiles/TimetableScheduler.dir/src/parser/db_interface.cpp.o -c /mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler/src/parser/db_interface.cpp
+
+CMakeFiles/TimetableScheduler.dir/src/parser/db_interface.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/TimetableScheduler.dir/src/parser/db_interface.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler/src/parser/db_interface.cpp > CMakeFiles/TimetableScheduler.dir/src/parser/db_interface.cpp.i
+
+CMakeFiles/TimetableScheduler.dir/src/parser/db_interface.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/TimetableScheduler.dir/src/parser/db_interface.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler/src/parser/db_interface.cpp -o CMakeFiles/TimetableScheduler.dir/src/parser/db_interface.cpp.s
+
 CMakeFiles/TimetableScheduler.dir/src/constraints/constraint_manager.cpp.o: CMakeFiles/TimetableScheduler.dir/flags.make
 CMakeFiles/TimetableScheduler.dir/src/constraints/constraint_manager.cpp.o: /mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler/src/constraints/constraint_manager.cpp
 CMakeFiles/TimetableScheduler.dir/src/constraints/constraint_manager.cpp.o: CMakeFiles/TimetableScheduler.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/TimetableScheduler.dir/src/constraints/constraint_manager.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/TimetableScheduler.dir/src/constraints/constraint_manager.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/TimetableScheduler.dir/src/constraints/constraint_manager.cpp.o -MF CMakeFiles/TimetableScheduler.dir/src/constraints/constraint_manager.cpp.o.d -o CMakeFiles/TimetableScheduler.dir/src/constraints/constraint_manager.cpp.o -c /mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler/src/constraints/constraint_manager.cpp
 
 CMakeFiles/TimetableScheduler.dir/src/constraints/constraint_manager.cpp.i: cmake_force
@@ -114,7 +142,7 @@ CMakeFiles/TimetableScheduler.dir/src/constraints/constraint_manager.cpp.s: cmak
 CMakeFiles/TimetableScheduler.dir/src/solver/solver.cpp.o: CMakeFiles/TimetableScheduler.dir/flags.make
 CMakeFiles/TimetableScheduler.dir/src/solver/solver.cpp.o: /mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler/src/solver/solver.cpp
 CMakeFiles/TimetableScheduler.dir/src/solver/solver.cpp.o: CMakeFiles/TimetableScheduler.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/TimetableScheduler.dir/src/solver/solver.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/TimetableScheduler.dir/src/solver/solver.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/TimetableScheduler.dir/src/solver/solver.cpp.o -MF CMakeFiles/TimetableScheduler.dir/src/solver/solver.cpp.o.d -o CMakeFiles/TimetableScheduler.dir/src/solver/solver.cpp.o -c /mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler/src/solver/solver.cpp
 
 CMakeFiles/TimetableScheduler.dir/src/solver/solver.cpp.i: cmake_force
@@ -128,7 +156,7 @@ CMakeFiles/TimetableScheduler.dir/src/solver/solver.cpp.s: cmake_force
 CMakeFiles/TimetableScheduler.dir/src/output/heuristics.cpp.o: CMakeFiles/TimetableScheduler.dir/flags.make
 CMakeFiles/TimetableScheduler.dir/src/output/heuristics.cpp.o: /mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler/src/output/heuristics.cpp
 CMakeFiles/TimetableScheduler.dir/src/output/heuristics.cpp.o: CMakeFiles/TimetableScheduler.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/TimetableScheduler.dir/src/output/heuristics.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/TimetableScheduler.dir/src/output/heuristics.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/TimetableScheduler.dir/src/output/heuristics.cpp.o -MF CMakeFiles/TimetableScheduler.dir/src/output/heuristics.cpp.o.d -o CMakeFiles/TimetableScheduler.dir/src/output/heuristics.cpp.o -c /mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler/src/output/heuristics.cpp
 
 CMakeFiles/TimetableScheduler.dir/src/output/heuristics.cpp.i: cmake_force
@@ -142,7 +170,7 @@ CMakeFiles/TimetableScheduler.dir/src/output/heuristics.cpp.s: cmake_force
 CMakeFiles/TimetableScheduler.dir/src/output/formatter.cpp.o: CMakeFiles/TimetableScheduler.dir/flags.make
 CMakeFiles/TimetableScheduler.dir/src/output/formatter.cpp.o: /mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler/src/output/formatter.cpp
 CMakeFiles/TimetableScheduler.dir/src/output/formatter.cpp.o: CMakeFiles/TimetableScheduler.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/TimetableScheduler.dir/src/output/formatter.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/TimetableScheduler.dir/src/output/formatter.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/TimetableScheduler.dir/src/output/formatter.cpp.o -MF CMakeFiles/TimetableScheduler.dir/src/output/formatter.cpp.o.d -o CMakeFiles/TimetableScheduler.dir/src/output/formatter.cpp.o -c /mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler/src/output/formatter.cpp
 
 CMakeFiles/TimetableScheduler.dir/src/output/formatter.cpp.i: cmake_force
@@ -153,27 +181,47 @@ CMakeFiles/TimetableScheduler.dir/src/output/formatter.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/TimetableScheduler.dir/src/output/formatter.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler/src/output/formatter.cpp -o CMakeFiles/TimetableScheduler.dir/src/output/formatter.cpp.s
 
+CMakeFiles/TimetableScheduler.dir/src/output/excel_exporter.cpp.o: CMakeFiles/TimetableScheduler.dir/flags.make
+CMakeFiles/TimetableScheduler.dir/src/output/excel_exporter.cpp.o: /mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler/src/output/excel_exporter.cpp
+CMakeFiles/TimetableScheduler.dir/src/output/excel_exporter.cpp.o: CMakeFiles/TimetableScheduler.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/TimetableScheduler.dir/src/output/excel_exporter.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/TimetableScheduler.dir/src/output/excel_exporter.cpp.o -MF CMakeFiles/TimetableScheduler.dir/src/output/excel_exporter.cpp.o.d -o CMakeFiles/TimetableScheduler.dir/src/output/excel_exporter.cpp.o -c /mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler/src/output/excel_exporter.cpp
+
+CMakeFiles/TimetableScheduler.dir/src/output/excel_exporter.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/TimetableScheduler.dir/src/output/excel_exporter.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler/src/output/excel_exporter.cpp > CMakeFiles/TimetableScheduler.dir/src/output/excel_exporter.cpp.i
+
+CMakeFiles/TimetableScheduler.dir/src/output/excel_exporter.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/TimetableScheduler.dir/src/output/excel_exporter.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler/src/output/excel_exporter.cpp -o CMakeFiles/TimetableScheduler.dir/src/output/excel_exporter.cpp.s
+
 # Object files for target TimetableScheduler
 TimetableScheduler_OBJECTS = \
 "CMakeFiles/TimetableScheduler.dir/src/main.cpp.o" \
+"CMakeFiles/TimetableScheduler.dir/src/scheduler_api.cpp.o" \
 "CMakeFiles/TimetableScheduler.dir/src/parser/csv_parser.cpp.o" \
+"CMakeFiles/TimetableScheduler.dir/src/parser/db_interface.cpp.o" \
 "CMakeFiles/TimetableScheduler.dir/src/constraints/constraint_manager.cpp.o" \
 "CMakeFiles/TimetableScheduler.dir/src/solver/solver.cpp.o" \
 "CMakeFiles/TimetableScheduler.dir/src/output/heuristics.cpp.o" \
-"CMakeFiles/TimetableScheduler.dir/src/output/formatter.cpp.o"
+"CMakeFiles/TimetableScheduler.dir/src/output/formatter.cpp.o" \
+"CMakeFiles/TimetableScheduler.dir/src/output/excel_exporter.cpp.o"
 
 # External object files for target TimetableScheduler
 TimetableScheduler_EXTERNAL_OBJECTS =
 
 TimetableScheduler: CMakeFiles/TimetableScheduler.dir/src/main.cpp.o
+TimetableScheduler: CMakeFiles/TimetableScheduler.dir/src/scheduler_api.cpp.o
 TimetableScheduler: CMakeFiles/TimetableScheduler.dir/src/parser/csv_parser.cpp.o
+TimetableScheduler: CMakeFiles/TimetableScheduler.dir/src/parser/db_interface.cpp.o
 TimetableScheduler: CMakeFiles/TimetableScheduler.dir/src/constraints/constraint_manager.cpp.o
 TimetableScheduler: CMakeFiles/TimetableScheduler.dir/src/solver/solver.cpp.o
 TimetableScheduler: CMakeFiles/TimetableScheduler.dir/src/output/heuristics.cpp.o
 TimetableScheduler: CMakeFiles/TimetableScheduler.dir/src/output/formatter.cpp.o
+TimetableScheduler: CMakeFiles/TimetableScheduler.dir/src/output/excel_exporter.cpp.o
 TimetableScheduler: CMakeFiles/TimetableScheduler.dir/build.make
 TimetableScheduler: CMakeFiles/TimetableScheduler.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable TimetableScheduler"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/mnt/c/Users/Asus/Projects/PBL/Time-Table-Scheduler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable TimetableScheduler"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/TimetableScheduler.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
