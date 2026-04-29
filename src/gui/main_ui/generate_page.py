@@ -1,8 +1,7 @@
 import threading
 import customtkinter as ctk
 from tkinter import messagebox
-from main_ui.widgets import SectionTitle
-from services.backend_api import BackendAPI
+from src.gui.main_ui.widgets import SectionTitle
 
 class GeneratePage(ctk.CTkFrame):
     def __init__(self, master, api, on_generated):

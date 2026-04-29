@@ -1,15 +1,13 @@
 import customtkinter as ctk
-from main_ui.theme import setup_theme
-from main_ui.sidebar import Sidebar
-from main_ui.dashboard_page import DashboardPage
-from main_ui.teachers_page import TeachersPage
-from main_ui.rooms_page import RoomsPage
-from main_ui.events_page import EventsPage
-from main_ui.generate_page import GeneratePage
-from main_ui.results_page import ResultsPage
-from services.backend_api import BackendAPI
-from services.cpp_bridge import init
-
+from src.gui.main_ui.theme import setup_theme
+from src.gui.main_ui.sidebar import Sidebar
+from src.gui.main_ui.dashboard_page import DashboardPage
+from src.gui.main_ui.teachers_page import TeachersPage
+from src.gui.main_ui.rooms_page import RoomsPage
+from src.gui.main_ui.events_page import EventsPage
+from src.gui.main_ui.generate_page import GeneratePage
+from src.gui.main_ui.results_page import ResultsPage
+from src.gui.services.cpp_bridge import SchedulerClient
 class TimetableApp(ctk.CTk):
     def __init__(self):
         super().__init__()
@@ -19,14 +17,10 @@ class TimetableApp(ctk.CTk):
         self.geometry("1400x820")
         self.minsize(1200, 700)
 
-        self.api = BackendAPI()
-        init(
-            "data/db.sqlite",
-            "data/courses.csv",
-            "data/teachers.csv",
-            "data/rooms.csv"
-        )
-
+        self.client = SchedulerClient()
+        self.client.init_scheduler(data_dir="data")
+        
+        self.api = self._create_mock_api() # Temporary adapter
         self.grid_columnconfigure(1, weight=1)
         self.grid_rowconfigure(0, weight=1)
 
@@ -65,3 +59,34 @@ class TimetableApp(ctk.CTk):
     def on_generated(self, result):
         self.pages["results"].load_result(result)
         self.show_page("results")
+
+
+    def _create_mock_api(self):
+        """Temporary wrapper to fulfill UI required methods until db interface is written"""
+        class StubAPI:
+            def __init__(self, client):
+                self.client = client
+                self.teachers = []
+                self.rooms = []
+                self.events = []
+                
+            def get_teachers(self): return self.teachers
+            def get_rooms(self): return self.rooms
+            def get_events(self): return self.events
+            
+            def add_teacher(self, tid, name):
+                self.teachers.append({"teacher_id": tid, "name": name})
+                return True, "Teacher added"
+                
+            def add_room(self, rid, name, cap):
+                self.rooms.append({"room_id": rid, "name": name, "capacity": cap})
+                return True, "Room added"
+                
+            def add_event(self, **kwargs):
+                self.events.append(kwargs)
+                return True, "Event added"
+                
+            def generate_timetable(self, progress_callback=None):
+                return self.client.generate_timetable()
+                
+        return StubAPI(self.client)

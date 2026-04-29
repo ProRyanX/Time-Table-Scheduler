@@ -1,7 +1,7 @@
 import customtkinter as ctk
 from tkinter import messagebox
-from main_ui.widgets import SectionTitle, DataTable
-from services.validation import validate_required
+from src.gui.main_ui.widgets import SectionTitle, DataTable
+from src.gui.services.validation import validate_required
 
 class TeachersPage(ctk.CTkFrame):
     def __init__(self, master, api, on_refresh_dashboard):

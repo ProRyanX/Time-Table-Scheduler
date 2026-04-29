@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from main_ui.widgets import SectionTitle, StatCard
+from src.gui.main_ui.widgets import SectionTitle, StatCard
 
 class ResultsPage(ctk.CTkFrame):
     def __init__(self, master):

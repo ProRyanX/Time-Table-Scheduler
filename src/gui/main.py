@@ -1,44 +1,34 @@
-from main_ui.main_window import TimetableApp
-from services.cpp_bridge import scheduler
 import subprocess
 import sys
-import atexit
 import time
+from src.gui.main_ui.main_window import TimetableApp
+from src.gui.services.cpp_bridge import SchedulerClient
 
 flask_process = None
+client = SchedulerClient()
 
 def start_flask_server():
     """Start Flask server as subprocess"""
     global flask_process
     
-    # Start Flask server
+    # Start Flask server (point to the correct file path)
     flask_process = subprocess.Popen(
-        [sys.executable, "backend_api.py"],
+        [sys.executable, "src/gui/services/backend_api.py"],
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
-        cwd="."  # Adjust path as needed
+        cwd="."  # Run from project root
     )
     
     # Wait for server to be ready
     for _ in range(10):  # Max 5 seconds
         try:
-            if scheduler.get_status().get("status") == "healthy":
+            # cpp_bridge currently doesn't check health, so we just wait briefly
+            status = client.get_status()
+            if isinstance(status, dict) and status.get("ready") is not None:
                 break
-        except:
+        except Exception:
             pass
         time.sleep(0.5)
-
-def init_backend():
-    """Initialize via Flask API"""
-    if not scheduler.init_scheduler("data"):
-        raise RuntimeError("Failed to initialize C++ backend via Flask")
-    
-    # Optional: Generate automatically
-    result = scheduler.generate_timetable()
-    if not result["success"]:
-        raise RuntimeError(f"Failed to generate: {result.get('error')}")
-    
-    print(f"Success! Score: {result['score']}")
 
 def cleanup():
     """Stop Flask server on exit"""
@@ -48,15 +38,15 @@ def cleanup():
 
 if __name__ == "__main__":
     try:
-        # Start Flask server
+        # 1. Start backend server
+        print("Starting Flask backend...")
         start_flask_server()
         
-        # Initialize backend
-        init_backend()
-        
-        # Run GUI
+        # 2. Run GUI
+        print("Starting GUI...")
         app = TimetableApp()
         app.mainloop()
+        
     except Exception as e:
         print(f"Error: {e}")
         sys.exit(1)
