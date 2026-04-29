@@ -1,1 +1,3 @@
 .venv_wsl
+outputs
+data/db.sqlite
