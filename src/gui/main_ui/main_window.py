@@ -62,31 +62,103 @@ class TimetableApp(ctk.CTk):
 
 
     def _create_mock_api(self):
-        """Temporary wrapper to fulfill UI required methods until db interface is written"""
-        class StubAPI:
+        """Adapter that reads and writes directly to the CSV files so C++ can see them"""
+        import os
+        import csv
+        
+        class DirectCSVAPI:
             def __init__(self, client):
                 self.client = client
-                self.teachers = []
-                self.rooms = []
-                self.events = []
+                self.data_dir = "data"
+                self.teachers_file = os.path.join(self.data_dir, "teachers.csv")
+                self.rooms_file = os.path.join(self.data_dir, "rooms.csv")
+                self.courses_file = os.path.join(self.data_dir, "courses.csv")
                 
-            def get_teachers(self): return self.teachers
-            def get_rooms(self): return self.rooms
-            def get_events(self): return self.events
+            def get_teachers(self):
+                if not os.path.exists(self.teachers_file): return []
+                with open(self.teachers_file, mode='r', newline='', encoding='utf-8') as f:
+                    reader = csv.DictReader(f)
+                    return [{"teacher_id": row.get("id", ""), "name": row.get("name", "")} for row in reader]
+                    
+            def get_rooms(self):
+                if not os.path.exists(self.rooms_file): return []
+                with open(self.rooms_file, mode='r', newline='', encoding='utf-8') as f:
+                    reader = csv.DictReader(f)
+                    return [{"room_id": row.get("id", ""), "name": row.get("name", ""), "capacity": row.get("capacity", "")} for row in reader]
+                    
+            def get_events(self):
+                if not os.path.exists(self.courses_file): return []
+                with open(self.courses_file, mode='r', newline='', encoding='utf-8') as f:
+                    reader = csv.DictReader(f)
+                    return [
+                        {
+                            "section_id": row.get("section_id", ""),
+                            "subject_name": row.get("name", ""),
+                            "teacher_id": row.get("teacher_id", ""),
+                            "duration": int(row.get("duration", 1)),
+                            "frequency": int(row.get("lectures_per_week", 1)),
+                            "is_lab": int(row.get("is_lab", 0))
+                        } for row in reader
+                    ]
             
             def add_teacher(self, tid, name):
-                self.teachers.append({"teacher_id": tid, "name": name})
-                return True, "Teacher added"
+                is_new = not os.path.exists(self.teachers_file)
+                with open(self.teachers_file, mode='a', newline='', encoding='utf-8') as f:
+                    writer = csv.writer(f)
+                    if is_new: writer.writerow(["id", "name"])
+                    writer.writerow([tid, name])
+                return True, "Teacher added to CSV"
                 
             def add_room(self, rid, name, cap):
-                self.rooms.append({"room_id": rid, "name": name, "capacity": cap})
-                return True, "Room added"
+                is_new = not os.path.exists(self.rooms_file)
+                with open(self.rooms_file, mode='a', newline='', encoding='utf-8') as f:
+                    writer = csv.writer(f)
+                    if is_new: writer.writerow(["id", "name", "capacity", "roomType"])
+                    writer.writerow([rid, name, cap, "Classroom"]) # Defaulting to Classroom
+                return True, "Room added to CSV"
                 
-            def add_event(self, **kwargs):
-                self.events.append(kwargs)
-                return True, "Event added"
+            def add_event(self, section_id, subject, teacher_id, duration, frequency, is_lab):
+                is_new = not os.path.exists(self.courses_file)
                 
+                section_count = 1
+                if not is_new:
+                    with open(self.courses_file, 'r', encoding='utf-8') as f:
+                        reader = csv.DictReader(f)
+                        for row in reader:
+                            if row.get("section_id") == section_id:
+                                section_count += 1
+                
+                clean_section = str(section_id).replace(" ", "").upper()
+                c_id = f"C_{clean_section}_{section_count}"
+                
+                with open(self.courses_file, mode='a', newline='', encoding='utf-8') as f:
+                    writer = csv.writer(f)
+                    if is_new: writer.writerow(["id", "name", "teacher_id", "section_id", "lectures_per_week", "duration", "is_lab"])
+                    
+                    try: dur = int(duration)
+                    except: dur = 1
+                    try: freq = int(frequency)
+                    except: freq = 1
+                    
+                    writer.writerow([c_id, str(subject), str(teacher_id), str(section_id), freq, dur, 1 if is_lab else 0])
+                    
+                return True, f"Event {c_id} added to CSV"
+                            
             def generate_timetable(self, progress_callback=None):
+                import shutil
+                # 1. Delete the sqlite database so C++ is FORCED to rebuild it from the CSVs it sees
+                db_path = os.path.join(self.data_dir, "db.sqlite")
+                
+                try:
+                    if os.path.exists(db_path):
+                        os.remove(db_path)
+                except Exception as e:
+                    print(f"Warning could not delete db.sqlite: {e}")
+                
+                # 2. Re-initialize the Flask Backend context
+                self.client.init_scheduler(data_dir=self.data_dir)
+                
+                # 3. Generate Timetable using the fresh data
                 return self.client.generate_timetable()
                 
-        return StubAPI(self.client)
+        return DirectCSVAPI(self.client)

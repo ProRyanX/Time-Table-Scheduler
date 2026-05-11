@@ -117,24 +117,24 @@ vector<ClassEvent> SchedulerDB::loadCourses() const {
     vector<ClassEvent> result;
     if(!m_db) { return result; }
 
-    const char* sql = "SELECT id, name, teacher_id, freq, duration, is_lab FROM courses;";
+    const char* sql = "SELECT section_id, name, teacher_id, freq, duration, is_lab FROM courses;";
     sqlite3_stmt* stmt;
 
     if (sqlite3_prepare_v2(m_db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
         cerr << "[DB] loadCourses prepare failed: " << lastError() << "\n";
         return result;
     }
+
     while (sqlite3_step(stmt) == SQLITE_ROW) {
-        string id       = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0));
-        string name     = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1));
-        string teachId  = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 2));
-        int    freq     = sqlite3_column_int(stmt, 3);
-        int    duration = sqlite3_column_int(stmt, 4);
-        bool   isLab    = sqlite3_column_int(stmt, 5) != 0;
+        string section_id = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0));
+        string name       = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1));
+        string teachId    = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 2));
+        int    freq       = sqlite3_column_int(stmt, 3);
+        int    duration   = sqlite3_column_int(stmt, 4);
+        bool   isLab      = sqlite3_column_int(stmt, 5) != 0;
 
         // ClassEvent(sectionID, subjectName, teacher_ID, duration, frequency, Lab)
-        // sectionID placeholder — real sections handled by solver
-        result.emplace_back(id, name, teachId, duration, freq, isLab);
+        result.emplace_back(section_id, name, teachId, duration, freq, isLab);
     }
     sqlite3_finalize(stmt);
     cout << "[DB] Loaded " << result.size() << " courses.\n";

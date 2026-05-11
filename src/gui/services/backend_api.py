@@ -5,7 +5,7 @@ import os
 import json
 
 app = Flask(__name__)
-CORS(app)  # Allow GUI to call this API
+CORS(app)  
 
 class SchedulerBackend:
     def __init__(self):
@@ -28,13 +28,13 @@ class SchedulerBackend:
         for path in lib_paths:
             if os.path.exists(path):
                 self.lib = ctypes.CDLL(path)
-                print(f"Loaded Native C++ API: {path}") # Just to give terminal feedback
+                print(f"Loaded Native C++ API: {path}") 
                 break
         
         if not self.lib:
             raise Exception(f"C++ library not found. Searched in: {lib_paths}")
                 
-        # Define function signatures (same as before)
+        # Define function signatures 
         self.lib.init_scheduler.argtypes = [ctypes.c_char_p] * 4
         self.lib.init_scheduler.restype = ctypes.c_bool
         

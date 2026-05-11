@@ -11,7 +11,7 @@
 //  Output: outputs/SEC-A_timetable.xlsx
 //          outputs/SEC-B_timetable.xlsx  etc.
 //
-//  Each sheet layout:
+//  Each sheet layout:target_link_libraries
 //    Row 0   : Header banner (merged, styled)
 //    Row 1   : Day names (Mon–Fri)
 //    Rows 2–9: Time slots (8 slots), each cell shows:
